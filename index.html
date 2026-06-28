@@ -923,6 +923,13 @@ function shortSlot(slot){
     const team = computeGroupTable(g)[pos-1].team;
     return { name: TEAM_NAME[team], flag: flagOf(team) };
   }
+  // Single group 3rd place (e.g. "3D" = 3rd of group D) — resolve to actual team
+  if((m = slot.match(/^3([A-L])$/))){
+    const g = m[1];
+    const team = computeGroupTable(g)[2].team;
+    return { name: TEAM_NAME[team], flag: flagOf(team) };
+  }
+  // Multiple-group 3rd placeholder (e.g. "3A/B/C/D/F") — show abbreviated
   if((m = slot.match(/^3([A-L/]+)$/))){
     return { name: '3°' + m[1].replace(/\//g,''), flag: '🏳️' };
   }
